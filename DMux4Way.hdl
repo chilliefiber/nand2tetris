@@ -14,23 +14,10 @@ CHIP DMux4Way {
     OUT a, b, c, d;
 
     PARTS:
-    // implementation of logic to obtain 'a'
-    // unfortunately there is no Nor gate, so I used an Or followed by a Not
-    Or   (a=sel[0], b=sel[1], out=aNotSelected);
-    Not  (in=aNotSelected, out=aSelected);
-    And  (a=aSelected, b=in, out=a);
+    // I can't think of a better name for the Slash variables
+    // basically
 
-    // implementation of logic to obtain 'b'
-    Not(in=sel[1], out=aOrbSelected);
-    And (a=sel[0], b=aOrbSelected, out=bSelected);
-    And (a=bSelected, b=in, out=b);
-
-    // implementation of logic to obtain 'c'
-    Not(in=sel[0], out=cOraSelected);
-    And (a=sel[1], b=cOraSelected, out=cSelected);
-    And (a=cSelected, b=in, out=c);
-    
-    // implementation of logic to obtain 'd'
-    And (a=sel[0], b=sel[1], out=dSelected);
-    And  (a=dSelected, b=in, out=d);
+    DMux(in=in, sel=sel[1], a=inab, b=incd);
+    DMux(in=inab, sel=sel[0], a=a, b=b);
+    DMux(in=incd, sel=sel[0], a=c, b=d);
 }
