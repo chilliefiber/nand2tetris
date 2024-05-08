@@ -14,8 +14,6 @@ CHIP DMux4Way {
     OUT a, b, c, d;
 
     PARTS:
-    // I can't think of a better name for the Slash variables
-    // basically
 
     DMux(in=in, sel=sel[1], a=inab, b=incd);
     DMux(in=inab, sel=sel[0], a=a, b=b);
